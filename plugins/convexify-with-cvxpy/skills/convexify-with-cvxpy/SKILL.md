@@ -33,6 +33,7 @@ Never hide nonconvexity by forcing an expression through constants, `.value`, Nu
 - `scripts/cvxpy_convex_audit.py`: Load a CVXPY model from a Python file, print DCP/DGP/DQCP/DPP status, show noncompliant top-level pieces, inspect expression trees, and optionally solve a checked problem.
 - `references/modeling-playbook.md`: Practical convexification workflow, grammar choice, solver choice, and safety checks.
 - `references/reformulation-patterns.md`: Common exact rewrites, lifting tricks, cone forms, DGP/DQCP patterns, and relaxation templates.
+- `references/mm-robust-state-estimation.md`: Majorization-minimization and IRLS patterns for Student-t or Cauchy-style robust losses, constrained state estimation, and repeated CVXPY QP/QCQP subproblems.
 - `references/rocket-landing-and-control.md`: Powered-descent and SpaceX-style convexification patterns, including lossless convexification and successive convexification sketches.
 
 Load only the reference file that matches the current modeling task.
