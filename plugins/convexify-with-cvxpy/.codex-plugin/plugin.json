@@ -1,0 +1,46 @@
+{
+  "name": "convexify-with-cvxpy",
+  "version": "0.1.0",
+  "description": "Reformulate optimization problems into CVXPY-solvable convex models.",
+  "author": {
+    "name": "James Joseph",
+    "email": "jamestjsp@outlook.com",
+    "url": "https://github.com/jamestjat"
+  },
+  "homepage": "https://github.com/jamestjat/codex-cvxpy-skills",
+  "repository": "https://github.com/jamestjat/codex-cvxpy-skills",
+  "license": "Apache-2.0",
+  "keywords": [
+    "cvxpy",
+    "convex-optimization",
+    "dcp",
+    "dgp",
+    "dqcp",
+    "optimization",
+    "codex-skill"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Convexify with CVXPY",
+    "shortDescription": "Reformulate and solve convex CVXPY models",
+    "longDescription": "Helps Codex convert optimization problems into CVXPY-solvable DCP, DGP, DQCP, conic, relaxed, or sequentially convex models. Includes reusable diagnostics, reformulation patterns, and powered-descent/rocket-landing convexification guidance.",
+    "developerName": "James Joseph",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/jamestjat/codex-cvxpy-skills",
+    "privacyPolicyURL": "https://github.com/jamestjat/codex-cvxpy-skills/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/jamestjat/codex-cvxpy-skills/blob/main/TERMS.md",
+    "defaultPrompt": [
+      "Convexify this optimization problem.",
+      "Fix this CVXPY DCP error.",
+      "Model this as DGP or DQCP."
+    ],
+    "brandColor": "#2563EB",
+    "composerIcon": "./assets/icon.svg",
+    "logo": "./assets/logo.svg",
+    "screenshots": []
+  }
+}

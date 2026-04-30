@@ -1,0 +1,4 @@
+interface:
+  display_name: "Convexify with CVXPY"
+  short_description: "Reformulate and solve convex CVXPY models"
+  default_prompt: "Use $convexify-with-cvxpy to reformulate this optimization problem into a CVXPY-solvable convex model."
