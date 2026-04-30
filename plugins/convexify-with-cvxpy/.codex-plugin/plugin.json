@@ -7,8 +7,8 @@
     "email": "jamestjsp@outlook.com",
     "url": "https://github.com/jamestjat"
   },
-  "homepage": "https://github.com/jamestjat/codex-cvxpy-skills",
-  "repository": "https://github.com/jamestjat/codex-cvxpy-skills",
+  "homepage": "https://github.com/jamestjat/codex-skills",
+  "repository": "https://github.com/jamestjat/codex-skills",
   "license": "Apache-2.0",
   "keywords": [
     "cvxpy",
@@ -30,9 +30,9 @@
       "Interactive",
       "Write"
     ],
-    "websiteURL": "https://github.com/jamestjat/codex-cvxpy-skills",
-    "privacyPolicyURL": "https://github.com/jamestjat/codex-cvxpy-skills/blob/main/PRIVACY.md",
-    "termsOfServiceURL": "https://github.com/jamestjat/codex-cvxpy-skills/blob/main/TERMS.md",
+    "websiteURL": "https://github.com/jamestjat/codex-skills",
+    "privacyPolicyURL": "https://github.com/jamestjat/codex-skills/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/jamestjat/codex-skills/blob/main/TERMS.md",
     "defaultPrompt": [
       "Convexify this optimization problem.",
       "Fix this CVXPY DCP error.",

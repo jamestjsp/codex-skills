@@ -1,7 +1,7 @@
 {
-  "name": "codex-cvxpy-skills",
+  "name": "codex-skills",
   "interface": {
-    "displayName": "CVXPY Codex Skills"
+    "displayName": "Codex Skills"
   },
   "plugins": [
     {
