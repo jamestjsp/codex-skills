@@ -1,0 +1,47 @@
+{
+  "skill_name": "convexify-with-cvxpy",
+  "evals": [
+    {
+      "id": 0,
+      "name": "gtrs-hidden-convexity",
+      "prompt": "I want to solve this problem in Python:\n\n  minimize  x' A x + b' x\n  subject to x' C x + d' x <= e\n\nwhere A and C are SYMMETRIC INDEFINITE (not PSD) and x is in R^n. So both the objective and the constraint are nonconvex quadratics. I tried it directly in cvxpy and of course it failed DCP. Is there a principled way to solve it (not just a local solver)? Use n=8, generate a random instance with seed 0, and produce a working cvxpy solution that returns x and the objective. Report whether your approach is exact or a relaxation, and any conditions on tightness.",
+      "expected_output": "Recognize that this is the generalized trust-region subproblem (GTRS). Apply Shor's SDP relaxation by lifting X = xx', solve the SDP in CVXPY, and recover x. Cite the S-lemma / Polik-Terlaky for tightness conditions (m=1 indefinite quadratic constraint with strict feasibility => SDR is exact). Should produce numerical solution and discuss recovery from leading eigenvector.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "d-optimal-experiment-design",
+      "prompt": "I'm running an experiment where I can pick from m=20 candidate measurement vectors a_1, ..., a_m in R^p (p=5). I'll do N=100 measurements total but I get to choose what fraction lambda_i of measurements goes to design point i. The Fisher information is M(lambda) = sum_i lambda_i a_i a_i'. I want to maximize the determinant of M (D-optimality) but I keep getting DCP errors when I write `cp.log(cp.det(M))`. Generate random a_i with seed 1, find optimal lambda (lambda >= 0, sum=1), and report the design and log-det.",
+      "expected_output": "Use cp.log_det(M) as a single atom (not cp.log composed with cp.det). Should produce a sparse design (D-optimal designs typically have support <= p(p+1)/2 by Caratheodory). Should mention this is exact convex via log_det's concavity on PSD matrices and explain why the user's original formulation failed DCP.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "wasserstein-dro-logistic",
+      "prompt": "I'm training a binary classifier and worried about distribution shift. I read about Wasserstein distributionally robust optimization where you minimize the worst-case logistic loss over all distributions within Wasserstein-1 distance epsilon of the empirical distribution. The min-max formulation is intractable directly. Can you set this up as a tractable cvxpy problem? n=200 samples, p=10 features, generate synthetic data with seed 2, epsilon=0.1. I want both the classifier weights and to compare against ordinary logistic regression.",
+      "expected_output": "Use the regularization-equivalence: for Lipschitz loss (logistic is 1-Lipschitz in margin), Wasserstein-1 DRO collapses to ordinary loss + epsilon * dual-norm of weights. So the tractable form is `cp.sum(cp.logistic(...)) + epsilon * cp.norm(beta, q)` where q is the dual norm (q=inf for p=1 Wasserstein over l1, etc.). Should solve via EXP cone and report the comparison.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "downlink-beamforming-sdr",
+      "prompt": "Multi-user downlink beamforming problem. K=3 users, base station has Nt=4 antennas. Channel vectors h_k in C^Nt (complex). I want to design beamformers w_k in C^Nt to minimize total transmit power sum_k ||w_k||^2 subject to SINR constraints |h_k' w_k|^2 / (sum_{j!=k} |h_k' w_j|^2 + sigma^2) >= gamma for each user k, with gamma = 5 (linear). Generate random complex Gaussian channels with seed 3, sigma^2 = 0.1. The SINR constraint is nonconvex because of the ratio of quadratics. How do I solve this with cvxpy?",
+      "expected_output": "Two valid approaches: (1) Phase-rotation trick: rotate so h_k' w_k is real positive, giving SOC reformulation -- this is EXACT for this problem (Bengtsson-Ottersten); (2) SDR lifting W_k = w_k w_k' with PSD constraints, then rank-one recovery. Should prefer the SOC route (exact) and mention it's a known classical result. Should handle the complex case correctly (e.g., split real/imag or use cvxpy complex variables).",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "sparse-logistic-cardinality",
+      "prompt": "Sparse logistic regression with a HARD cardinality constraint -- I want at most k=5 nonzero features out of p=20. The l0 ball is nonconvex. I have n=300 samples (seed 4). I tried `cp.norm(beta, 0) <= 5` but cvxpy doesn't support that. I'd like the actual l0 solution if possible, not just an l1 relaxation -- but tell me clearly what the tradeoffs are and give me both options.",
+      "expected_output": "Two implementations: (a) MICP using boolean indicators z_i and big-M (or perspective formulation tightening), declared as exact under big-M validity; (b) l1-regularized logistic as a heuristic relaxation, declared as such. Should mention `cp.perspective` as the principled tightening for fixed-charge/indicator-gated convex losses. Should require a MIP solver (SCIP, CBC, MOSEK) for the exact route and degrade gracefully if none is available.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "graph-laplacian-learning",
+      "prompt": "I have N=200 samples of a p=15 dimensional signal and I want to learn a graph Laplacian L from them. I read about formulations like: maximize log det(L + (1/p) J) - tr(L S) - alpha * (sum of absolute values of off-diagonal entries of L), subject to L being a valid combinatorial Laplacian (off-diagonals nonpositive, rows sum to zero, L PSD). With seed 5, alpha=0.1. Set this up in cvxpy and recover the graph.",
+      "expected_output": "Use cp.log_det(L + J/p) (singular L handled by the rank-1 shift). Off-diagonal nonpositivity, row-sum=0, and PSD constraints. The off-diagonal l1 penalty must be `cp.sum(cp.abs(L_offdiag))` because `cp.norm(L,1)` is the matrix operator norm, not entrywise -- this is a known footgun. Should declare exact convex (concave maximization).",
+      "files": []
+    }
+  ]
+}

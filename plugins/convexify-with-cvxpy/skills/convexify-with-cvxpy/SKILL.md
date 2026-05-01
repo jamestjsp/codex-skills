@@ -29,18 +29,27 @@ Never hide nonconvexity by forcing an expression through constants, `.value`, Nu
 5. Validate with `assert problem.is_dcp()` / `is_dgp()` / `is_dqcp()` before solving. Use `solver=cp.CLARABEL` as the first open-source conic default unless the problem is a QP where `OSQP` is a better fit.
 6. After solving, report status, objective value, primal variable values needed by the user, residual-sensitive caveats, and whether the returned model is exact, relaxed, or local.
 
-## Bundled Resources
+## Reference Routing
+
+Load **only** the reference file that matches the current modeling task. Use this routing table to pick:
+
+| User signal | Load this reference |
+|---|---|
+| Single indefinite quadratic constraint, ratio of quadratics, "QCQP", trust region, GTRS, beamforming, sensor localization, "is there a way that isn't a local solver?" | `references/hidden-convexity-and-sdr.md` |
+| Distribution shift, distributionally robust, Wasserstein DRO, ambiguity set, chance constraint, Bernstein approximation, KL-DRO, robust regression to outliers in the test distribution | `references/dro-and-chance-constraints.md` |
+| `cp.log(cp.det(...))` errors, `cp.norm(X, 1)` confusion, "what atom should I use", `quad_form` with variable matrix, mixed-integer DCP not solving, DPP slow re-solve, complex Hermitian PSD, `cp.perspective` for fixed-charge / on-off costs | `references/cvxpy-atoms-tour.md` |
+| Standard benchmark families named by acronym: H2 control, matrix completion, phase retrieval / PhaseLift, sparse PCA, Max-Cut, AC-OPF, pose graph, essential matrix, cardinality portfolio, Lennard-Jones | `references/benchmark-family-playbook.md` |
+| Robust state estimation, Student-t / Cauchy heavy-tailed losses, IRLS, MM (majorization-minimization), repeated QP subproblems | `references/mm-robust-state-estimation.md` |
+| Powered descent, rocket landing, trajectory optimization, lossless convexification, successive convexification, SCvx, virtual control + trust region | `references/rocket-landing-and-control.md` |
+| General modeling workflow, grammar choice, solver choice, safety checks (start here when unsure) | `references/modeling-playbook.md` |
+| Common exact rewrites, lifting tricks, cone forms, DGP/DQCP patterns, relaxation templates | `references/reformulation-patterns.md` |
+
+`references/nonconvex-benchmark-suite-report.md` is the raw long-form benchmark report. Prefer the concise playbook during normal use.
+
+## Bundled Scripts
 
 - `scripts/cvxpy_convex_audit.py`: Load a CVXPY model from a Python file, print DCP/DGP/DQCP/DPP status, show noncompliant top-level pieces, inspect expression trees, and optionally solve a checked problem.
 - `scripts/cvxpy_benchmark_smoke.py`: Build toy versions of representative convexified benchmark families and assert that CVXPY recognizes the resulting models as DCP.
-- `references/benchmark-family-playbook.md`: Routing guide for standard nonconvex benchmark families such as H2 control, matrix completion, PhaseLift, sparse PCA, Max-Cut, AC-OPF, pose graph optimization, essential matrix estimation, cardinality portfolios, and Lennard-Jones lower bounding.
-- `references/nonconvex-benchmark-suite-report.md`: Raw benchmark report used as background for benchmark-family routing; prefer the concise playbook during normal use.
-- `references/modeling-playbook.md`: Practical convexification workflow, grammar choice, solver choice, and safety checks.
-- `references/reformulation-patterns.md`: Common exact rewrites, lifting tricks, cone forms, DGP/DQCP patterns, and relaxation templates.
-- `references/mm-robust-state-estimation.md`: Majorization-minimization and IRLS patterns for Student-t or Cauchy-style robust losses, constrained state estimation, and repeated CVXPY QP/QCQP subproblems.
-- `references/rocket-landing-and-control.md`: Powered-descent and SpaceX-style convexification patterns, including lossless convexification and successive convexification sketches.
-
-Load only the reference file that matches the current modeling task.
 
 ## Quick Commands
 
